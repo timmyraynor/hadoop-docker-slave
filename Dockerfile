@@ -40,6 +40,10 @@ ADD hdfs-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
 ADD mapred-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
 ADD yarn-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
 
+ADD core-site.xml.template $HADOOP_PREFIX/etc/hadoop/core-site.xml.template
+RUN sed s/HOSTNAME/localhost/ /usr/local/hadoop/etc/hadoop/core-site.xml.template > /usr/local/hadoop/etc/hadoop/core-site.xml
+ADD hdfs-site.xml $HADOOP_PREFIX/etc/hadoop/hdfs-site.xml
+
 # setup passphraseless ssh
 #RUN ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa && cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys && chmod 0600 ~/.ssh/authorized_keys
 
@@ -62,7 +66,7 @@ RUN /etc/init.d/ssh restart && /usr/local/hadoop/sbin/start-dfs.sh && /usr/local
 
 ADD start-keep-alive.sh /etc/bootstrap.sh
 RUN chown root:root /etc/bootstrap.sh
-RUN chmod 700 /etc/bootstrap.sh
+RUN chmod 777 /etc/bootstrap.sh
 
 ENV BOOTSTRAP /etc/bootstrap.sh
 
