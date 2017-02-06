@@ -62,11 +62,12 @@ RUN chown root:root /root/.ssh/config
 
 
 # ready on port 50070
-RUN /etc/init.d/ssh restart && /usr/local/hadoop/sbin/start-dfs.sh && /usr/local/hadoop/sbin/start-yarn.sh
+RUN /etc/init.d/ssh start && /usr/local/hadoop/sbin/start-dfs.sh && /usr/local/hadoop/sbin/start-yarn.sh
 
 ADD start-keep-alive.sh /etc/bootstrap.sh
 RUN chown root:root /etc/bootstrap.sh
 RUN chmod 777 /etc/bootstrap.sh
+RUN chmod 777 $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
 
 ENV BOOTSTRAP /etc/bootstrap.sh
 
