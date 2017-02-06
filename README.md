@@ -8,6 +8,12 @@ Simplest way to run is using `docker build  -t hadoop-docker:latest .` to build.
 
 You will also need `docker port <container id or name>` to tell the port mapping after the `-P` option.
 
+The *bootstrap.sh* script is the default entry point for this docker image. You can also specifically call the *bootstrap.sh* script like following.
+
+```shell
+docker run -it -d hadoop-docker:latest /etc/bootstrap.sh -bash
+```
+
 # misc
 
 ### shortcuts for deleting images and containers when you finished your customized build
