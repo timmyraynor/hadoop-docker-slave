@@ -2,6 +2,19 @@
 
 Dockerfile for spark on hadoop, this repo build is mainly learn and copy from the [sequenceiq/hadoop docker repo](https://github.com/sequenceiq/hadoop-docker).
 
+If you are interested in using this image, please refer to the customized [timmyraynor/hadoop-docker](https://hub.docker.com/r/timmyraynor/hadoop-docker/).
+
+Or just use following command
+
+```shell
+  docker pull timmyarynor/hadoop-docker
+ ```
+
+The customizations are listed blow:
+- based on ubuntu
+- get latest hadoop stable 2.7.3
+- use default ssh port 22 instead of the 2212 in the sequenceiq one
+
 # how to run
 
 Simplest way to run is using `docker build  -t hadoop-docker:latest .` to build. Then you could  use `docker run -it -d -P hadoop-docker` to get the system running.
