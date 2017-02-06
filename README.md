@@ -1,4 +1,4 @@
-# spark-on-hadoop-docker
+# hadoop-on-docker
 
 Dockerfile for spark on hadoop, this repo build is mainly learn and copy from the [sequenceiq/hadoop docker repo](https://github.com/sequenceiq/hadoop-docker).
 
