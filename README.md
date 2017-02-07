@@ -37,3 +37,4 @@ docker run -it -d hadoop-docker:latest /etc/bootstrap.sh -bash
   # Delete all images
   docker rmi $(docker images -q)
 ```
+
