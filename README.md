@@ -38,3 +38,13 @@ docker run -it -d hadoop-docker:latest /etc/bootstrap.sh -bash
   docker rmi $(docker images -q)
 ```
 
+### exchange between hdfs & host
+
+It is recommended to use some s3 like instance for the information exchange or just disk mount. In our case we use [*minio*](https://minio.io/):
+
+```shell
+  docker run -p 9000:9000 minio/minio server /export
+```
+
+Then the GUI should be ready on port 9000.
+  
