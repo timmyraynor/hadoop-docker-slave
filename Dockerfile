@@ -2,11 +2,9 @@ FROM ubuntu:16.04
 MAINTAINER Tim.Qin<qinyujue@gmail.com>
 
 RUN apt-get -y update
-RUN apt-get -y install ssh
-RUN apt-get -y install rsync
+RUN apt-get -y install ssh rsync openjdk-8-jdk s3cmd
 
 # setup jdk
-RUN apt-get install -y openjdk-8-jdk
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 RUN apt-get install -y wget && export PATH=$PATH:$JAVA_HOME/bin
 RUN wget -O /tmp/hadoop-2.7.3.tar.gz http://apache.mirror.amaze.com.au/hadoop/common/stable/hadoop-2.7.3.tar.gz
@@ -31,7 +29,7 @@ RUN sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/had
 RUN /etc/init.d/ssh start
 
 # prepare the datanode and namenode folder
-RUN mkdir /opt/hadoop
+RUN mkdir /opt/hadoop 
 RUN chmod o+rw /opt/hadoop
 RUN mkdir /opt/hadoop/name
 RUN mkdir /opt/hadoop/data
@@ -41,6 +39,7 @@ ADD core-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
 ADD hdfs-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
 ADD mapred-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
 ADD yarn-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
+ADD s3cfg ~/.s3cfg
 
 ADD core-site.xml.template $HADOOP_PREFIX/etc/hadoop/core-site.xml.template
 RUN sed s/HOSTNAME/localhost/ /usr/local/hadoop/etc/hadoop/core-site.xml.template > /usr/local/hadoop/etc/hadoop/core-site.xml
