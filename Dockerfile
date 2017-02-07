@@ -48,6 +48,7 @@ ADD hdfs-site.xml $HADOOP_PREFIX/etc/hadoop/hdfs-site.xml
 #RUN ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa && cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys && chmod 0600 ~/.ssh/authorized_keys
 
 
+RUN $HADOOP_PREFIX/bin/hdfs namenode -format
 
 #RUN rm /etc/ssh/ssh_host_dsa_key
 #RUN rm /etc/ssh/ssh_host_rsa_key
