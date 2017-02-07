@@ -39,7 +39,7 @@ ADD core-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
 ADD hdfs-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
 ADD mapred-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
 ADD yarn-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
-ADD s3cfg ~/.s3cfg
+ADD s3cfg /root/.s3cfg
 
 ADD core-site.xml.template $HADOOP_PREFIX/etc/hadoop/core-site.xml.template
 RUN sed s/HOSTNAME/localhost/ /usr/local/hadoop/etc/hadoop/core-site.xml.template > /usr/local/hadoop/etc/hadoop/core-site.xml
