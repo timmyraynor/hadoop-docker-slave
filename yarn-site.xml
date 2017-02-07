@@ -22,7 +22,8 @@
         <value>mapreduce_shuffle</value>
     </property>
 
-    <property>
+    <!-- add in the following section to walkaround issue (https://issues.apache.org/jira/browse/YARN-4714)-->
+  <property>
         <name>yarn.nodemanager.pmem-check-enabled</name>
         <value>false</value>
     </property>
@@ -31,6 +32,7 @@
         <name>yarn.nodemanager.vmem-check-enabled</name>
         <value>false</value>
     </property>
+    <!-- walk around finished -->
 
     <property>
       <name>yarn.application.classpath</name>
