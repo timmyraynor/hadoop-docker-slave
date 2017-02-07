@@ -43,8 +43,8 @@ docker run -it -d hadoop-docker:latest /etc/bootstrap.sh -bash
 It is recommended to use some s3 like instance for the information exchange or just disk mount. In our case we use [*minio*](https://minio.io/):
 
 ```shell
-  docker run -p 9000:9000 minio/minio server /export
+  docker run -p 9000:9000 -e "MINIO_ACCESS_KEY=hello" -e "MINIO_SECRET_KEY=helloworld" minio/minio server /export
 ```
 
-Then the GUI should be ready on port 9000.
+Then the GUI should be ready on port 9000. With the specified access_key and secret_key, your container can then setup a default .s3cfg file with the corresponding secret for connection.
   
