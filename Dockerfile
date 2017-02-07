@@ -10,7 +10,7 @@ RUN apt-get install -y wget && export PATH=$PATH:$JAVA_HOME/bin
 RUN wget -O /tmp/hadoop-2.7.3.tar.gz http://apache.mirror.amaze.com.au/hadoop/common/stable/hadoop-2.7.3.tar.gz
 # install hadoop
 RUN tar -xzf /tmp/hadoop-2.7.3.tar.gz -C /usr/local
-RUN cd /usr/local && ln -s ./hadoop-2.7.3 hadoop
+RUN cd /usr/local && ln -s ./hadoop-2.7.3 hadoop && rm /tmp/hadoop-2.7.3.tar.gz
 
 # now setup environment
 ENV HADOOP_PREFIX /usr/local/hadoop
@@ -51,10 +51,7 @@ ADD hdfs-site.xml $HADOOP_PREFIX/etc/hadoop/hdfs-site.xml
 
 RUN $HADOOP_PREFIX/bin/hdfs namenode -format
 
-#RUN rm /etc/ssh/ssh_host_dsa_key
-#RUN rm /etc/ssh/ssh_host_rsa_key
-#RUN ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_dsa_key
-#RUN ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key
+# Generating ssh phraseless key
 RUN ssh-keygen -q -N "" -t rsa -C noname -f /root/.ssh/id_rsa && cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys &&chmod 0600 ~/.ssh/authorized_keys
 
 ADD ssh_config /root/.ssh/config

@@ -17,14 +17,14 @@ The customizations are listed blow:
 
 # how to run
 
-Simplest way to run is using `docker build  -t hadoop-docker:latest .` to build. Then you could  use `docker run -it -d -P hadoop-docker` to get the system running.
+Simplest way to run is using `docker build  -t timmyraynor/hadoop-docker .` to build. Then you could  use `docker run -it -d -P hadoop-docker` to get the system running.
 
 You will also need `docker port <container id or name>` to tell the port mapping after the `-P` option.
 
 The *bootstrap.sh* script is the default entry point for this docker image. You can also specifically call the *bootstrap.sh* script like following.
 
 ```shell
-docker run -it -d hadoop-docker:latest /etc/bootstrap.sh -bash
+docker run -it -d -p 8088:8088 -p 8042:8042 -p 4040:4040 -p 50070:50070 timmyraynor/hadoop-docker /etc/bootstrap-hadoop.sh -bash
 ```
 
 # misc
