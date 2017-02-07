@@ -1,4 +1,6 @@
-FROM ubuntu:16.04 
+FROM ubuntu:16.04
+MAINTAINER Tim.Qin<qinyujue@gmail.com>
+
 RUN apt-get -y update
 RUN apt-get -y install ssh
 RUN apt-get -y install rsync
