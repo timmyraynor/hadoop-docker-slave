@@ -34,12 +34,15 @@ RUN chmod o+rw /opt/hadoop
 RUN mkdir /opt/hadoop/name
 RUN mkdir /opt/hadoop/data
 
+# add s3cfg file for s3cmd and minio bucket
+ADD s3cfg /root/.s3cfg
+
 # add over the hdfs-site.xml and core-site.xml file
 ADD core-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
 ADD hdfs-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
 ADD mapred-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
 ADD yarn-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
-ADD s3cfg /root/.s3cfg
+
 
 ADD core-site.xml.template $HADOOP_PREFIX/etc/hadoop/core-site.xml.template
 RUN sed s/HOSTNAME/localhost/ /usr/local/hadoop/etc/hadoop/core-site.xml.template > /usr/local/hadoop/etc/hadoop/core-site.xml
