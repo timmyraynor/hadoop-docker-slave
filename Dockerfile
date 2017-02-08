@@ -7,7 +7,7 @@ RUN apt-get -y install ssh rsync openjdk-8-jdk s3cmd
 # setup jdk
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
 RUN apt-get install -y wget && export PATH=$PATH:$JAVA_HOME/bin
-RUN wget -O /tmp/hadoop-2.7.3.tar.gz http://apache.mirror.amaze.com.au/hadoop/common/stable/hadoop-2.7.3.tar.gz
+RUN wget -q -O /tmp/hadoop-2.7.3.tar.gz http://apache.mirror.amaze.com.au/hadoop/common/stable/hadoop-2.7.3.tar.gz
 # install hadoop
 RUN tar -xzf /tmp/hadoop-2.7.3.tar.gz -C /usr/local
 RUN cd /usr/local && ln -s ./hadoop-2.7.3 hadoop && rm /tmp/hadoop-2.7.3.tar.gz
