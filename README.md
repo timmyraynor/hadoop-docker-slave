@@ -40,6 +40,8 @@ docker run -it -d -p 8088:8088 -p 8042:8042 -p 4040:4040 -p 50070:50070 timmyray
 
 ### exchange between hdfs & host
 
+#### manual
+
 It is recommended to use some s3 like instance for the information exchange or just disk mount. In our case we use [*minio*](https://minio.io/):
 
 ```shell
@@ -47,4 +49,13 @@ It is recommended to use some s3 like instance for the information exchange or j
 ```
 
 Then the GUI should be ready on port 9000. With the specified access_key and secret_key, your container can then setup a default .s3cfg file with the corresponding secret for connection.
-  
+
+#### docker compose
+
+If you have docker compose, then you could use following command to automatically load minio with your hadoop instance:
+
+```shell
+    docker-compose up
+```
+
+Please refer to the `docker-compose.yaml` file for further information
