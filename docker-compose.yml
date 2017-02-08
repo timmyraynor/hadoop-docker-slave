@@ -3,6 +3,7 @@ services:
   sandbox:
     build: .
     image: timmyraynor/hadoop-docker:latest
+    hostname: sandbox
     ports:
      - "8088:8088"
      - "50070:50070"
