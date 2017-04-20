@@ -54,7 +54,7 @@ RUN echo 'export HADOOP_SSH_OPTS="-p 11126"' >> $HADOOP_PREFIX/etc/hadoop/hadoop
 #RUN ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa && cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys && chmod 0600 ~/.ssh/authorized_keys
 
 
-RUN $HADOOP_PREFIX/bin/hdfs namenode -format
+# RUN $HADOOP_PREFIX/bin/hdfs namenode -format
 
 # Generating ssh phraseless key
 RUN ssh-keygen -q -N "" -t rsa -C noname -f /root/.ssh/id_rsa && cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys &&chmod 0600 ~/.ssh/authorized_keys
@@ -66,17 +66,17 @@ RUN chown root:root /root/.ssh/config
 
 
 
-# ready on port 50070
-RUN /etc/init.d/ssh start && /usr/local/hadoop/sbin/start-dfs.sh && /usr/local/hadoop/sbin/start-yarn.sh
+# ready on ssh port 11126
+CMD ["/etc/init.d/ssh start"]
 
-ADD start-keep-alive.sh /etc/bootstrap-hadoop.sh
-RUN chown root:root /etc/bootstrap-hadoop.sh
-RUN chmod 777 /etc/bootstrap-hadoop.sh
+# ADD start-keep-alive.sh /etc/bootstrap-hadoop.sh
+# RUN chown root:root /etc/bootstrap-hadoop.sh
+# RUN chmod 777 /etc/bootstrap-hadoop.sh
 RUN chmod 777 $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
 
-ENV BOOTSTRAP /etc/bootstrap-hadoop.sh
+# ENV BOOTSTRAP /etc/bootstrap-hadoop.sh
 
-CMD ["/etc/bootstrap-hadoop.sh", "-d"]
+# CMD ["/etc/bootstrap-hadoop.sh", "-d"]
 
 EXPOSE 50010 50020 50070 50075 50090
 # Mapred ports
