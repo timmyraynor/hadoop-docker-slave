@@ -26,6 +26,7 @@ RUN sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/had
 
 # setup sshd using port 11126
 RUN echo '    Port 11126' >> /etc/ssh/ssh_config
+RUN sed -ie 's/Port 22/Port 11126/g' /etc/ssh/sshd_config
 RUN /etc/init.d/ssh start
 
 # prepare the datanode and namenode folder
