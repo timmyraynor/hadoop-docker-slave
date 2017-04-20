@@ -59,7 +59,7 @@ RUN echo 'export HADOOP_SSH_OPTS="-p 11126"' >> $HADOOP_PREFIX/etc/hadoop/hadoop
 # Generating ssh phraseless key
 RUN ssh-keygen -q -N "" -t rsa -C noname -f /root/.ssh/id_rsa && cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys &&chmod 0600 ~/.ssh/authorized_keys
 ADD id_rsa.pub /root/id_rsa.pub
-RUN cat id_rsa.pub >> /root/.ssh/authorized_keys
+RUN cat /root/id_rsa.pub >> /root/.ssh/authorized_keys
 ADD ssh_config /root/.ssh/config
 RUN chmod 600 /root/.ssh/config
 RUN chown root:root /root/.ssh/config
