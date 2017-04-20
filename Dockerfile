@@ -47,7 +47,7 @@ ADD yarn-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
 ADD core-site.xml.template $HADOOP_PREFIX/etc/hadoop/core-site.xml.template
 RUN sed s/HOSTNAME/localhost/ /usr/local/hadoop/etc/hadoop/core-site.xml.template > /usr/local/hadoop/etc/hadoop/core-site.xml
 ADD hdfs-site.xml $HADOOP_PREFIX/etc/hadoop/hdfs-site.xml
-RUN echo 'export HADOOP_SSH_OPTS="-p 20002"' >> $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
+RUN echo 'export HADOOP_SSH_OPTS="-p 11126"' >> $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
 
 # setup passphraseless ssh
 #RUN ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa && cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys && chmod 0600 ~/.ssh/authorized_keys
@@ -57,7 +57,8 @@ RUN $HADOOP_PREFIX/bin/hdfs namenode -format
 
 # Generating ssh phraseless key
 RUN ssh-keygen -q -N "" -t rsa -C noname -f /root/.ssh/id_rsa && cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys &&chmod 0600 ~/.ssh/authorized_keys
-
+ADD id_rsa.pub /root/id_rsa.pub
+RUN cat id_rsa.pub >> /root/.ssh/authorized_keys
 ADD ssh_config /root/.ssh/config
 RUN chmod 600 /root/.ssh/config
 RUN chown root:root /root/.ssh/config
