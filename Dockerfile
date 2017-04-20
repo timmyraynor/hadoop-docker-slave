@@ -24,8 +24,8 @@ ENV YARN_CONF_DIR $HADOOP_PREFIX/etc/hadoop
 RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64\nexport HADOOP_PREFIX=/usr/local/hadoop\nexport HADOOP_HOME=/usr/local/hadoop\n:' $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
 RUN sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop/:' $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
 
-
-
+# setup sshd using port 11126
+RUN echo '    Port 11126' >> /etc/ssh/ssh_config
 RUN /etc/init.d/ssh start
 
 # prepare the datanode and namenode folder
@@ -47,6 +47,7 @@ ADD yarn-site.xml /usr/local/hadoop-2.7.3/etc/hadoop/
 ADD core-site.xml.template $HADOOP_PREFIX/etc/hadoop/core-site.xml.template
 RUN sed s/HOSTNAME/localhost/ /usr/local/hadoop/etc/hadoop/core-site.xml.template > /usr/local/hadoop/etc/hadoop/core-site.xml
 ADD hdfs-site.xml $HADOOP_PREFIX/etc/hadoop/hdfs-site.xml
+RUN echo 'export HADOOP_SSH_OPTS="-p 20002"' >> $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh
 
 # setup passphraseless ssh
 #RUN ssh-keygen -t dsa -P '' -f ~/.ssh/id_dsa && cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys && chmod 0600 ~/.ssh/authorized_keys
@@ -82,6 +83,6 @@ EXPOSE 19888
 EXPOSE 8030 8031 8032 8033 8040 8042 8088
 #Other ports
 EXPOSE 49707 2122
-EXPOSE 9000
+EXPOSE 9000 11126
 
 
